@@ -30,10 +30,10 @@ byte HintToSentinel(byte sentinelHint) {
   isSentinelOnLeft = (firstDigit > secondDigit);
   byte sentinelHintDigit =  isSentinelOnLeft ? firstDigit : secondDigit;
   sentinelDigit = 9 - sentinelHintDigit; // This is what indicates that next # is the secret #
-  
+
   do {
     byte sentinelOtherDigit = random(0, 10); // any digit will do. Even same as sentinel digit.
-    
+
     sentinelNumber = (isSentinelOnLeft) ?
                      sentinelDigit * 10 + sentinelOtherDigit :
                      sentinelOtherDigit * 10 + sentinelDigit;
@@ -88,10 +88,8 @@ void GenerateGuesses() {
 
 //------------------------------------
 
-void PrepareMagic(byte chosenNum) {
-  Print("PrepareMagic. chosenNum=", chosenNum);
-  chosenNumber = chosenNum;
-  
+void PrepareMagic() {
+  Print("\nPrepareMagic. chosenNumber", chosenNumber);
   numberOfGuesses = random(3, maxNumberOfGuesses + 1);
   Print("numberOfGuesses", numberOfGuesses);
 
@@ -105,26 +103,41 @@ void PrepareMagic(byte chosenNum) {
   Print("sentinelNumber", sentinelNumber);
 
   GenerateGuesses();
+  currentState = WAITING_FOR_MAGICIAN;
 }
 
 void PerformMagic() {
-  if (numberOfGuesses != 0) {
-    Serial.println("PerformMagic");
-    for (byte i = 0; i < numberOfGuesses; i++) {
-      Serial.print("Guess["); Serial.print(i); Print("]", guesses[i]);
-    }
-    for (byte guessIndex = 0; guessIndex < numberOfGuesses; guessIndex++) {
-      PrintElement("guesses", guessIndex, guesses[guessIndex]);
-      currentNumber = guesses[guessIndex];
-      do {
-        Refresh();
-      } while (digitalRead(buttonPins[2]) != PRESSED);
+  Serial.println("PerformMagic");
+  // First, show "--" to indicate start of guesses...
+  currentNumber = 0;
+  byte pressedButtonIndex;
+  do {
+    pressedButtonIndex = WaitForButton();
+    if (pressedButtonIndex == 0) {currentState = WAITING_FOR_CHOSEN_NUMBER; break;}
+    if (pressedButtonIndex == 2) {currentState = WAITING_FOR_NEXT_GUESS; break;}
+  } while (true);
 
-      delay(500);
-    }
+  if (currentState == WAITING_FOR_NEXT_GUESS) {
+    if (numberOfGuesses != 0) { // Make sure PrepareMagic() has filled the guesses array()
+      for (byte i = 0; i < numberOfGuesses; i++) {
+        Serial.print("Guess["); Serial.print(i); Print("]", guesses[i]);
+      }
+      for (byte guessIndex = 0; guessIndex < numberOfGuesses; guessIndex++) {
+        PrintElement("guesses", guessIndex, guesses[guessIndex]);
+        currentNumber = guesses[guessIndex];
+        do {
+          //Refresh();
+          delay(100);
+        } while (digitalRead(buttonPins[2]) != PRESSED);
 
-    TakeaBow();
-    numberOfGuesses = 0; // Get ready for next show
+        delay(500);
+      }
+
+      currentState = WAITING_FOR_NEXT_TRICK;
+      Applause(); // until they press button 0 to get another random#
+      numberOfGuesses = 0; // Get ready for next show
+      chosenNumber = 0;
+    }
   }
 }
 

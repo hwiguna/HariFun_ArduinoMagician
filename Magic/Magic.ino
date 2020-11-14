@@ -1,7 +1,9 @@
+#include <TimerOne.h>
+
 /*
- * Pick a number betweeen 1 and 99
- * by Hari Wiguna, 2020
- */
+   Pick a number betweeen 1 and 99
+   by Hari Wiguna, 2020
+*/
 
 const byte segmentPins[] = {2, 3, 4, 5, 6, 7, 8};
 const byte digitPins[] = {12, 13};
@@ -27,12 +29,42 @@ const byte numberMap[] = {
   //B01010011,  // ?
 };
 
-byte currentNumber = 13;
-byte currentDigitIndex = 0;
+byte currentNumber = random(1, maxNumber + 1);
+volatile byte currentDigitIndex = 0;
+volatile bool isDisplayOn = true;
+
+#define WAITING_FOR_CHOSEN_NUMBER  0
+#define WAITING_FOR_MAGICIAN  1
+#define WAITING_FOR_NEXT_GUESS  2
+#define WAITING_FOR_NEXT_TRICK  3
+byte currentState = WAITING_FOR_CHOSEN_NUMBER;
+
+byte WaitForButton() {
+  byte pressedButtonIndex = -1; // none pressed
+  do {
+    delay(100);
+    for (byte buttonIndex = 0; buttonIndex < 3; buttonIndex++)
+      if (digitalRead(buttonPins[buttonIndex]) == PRESSED) pressedButtonIndex = buttonIndex;
+  } while (pressedButtonIndex == -1);
+  return pressedButtonIndex;
+}
+
+void DisplayCurrentNumber(void)
+{
+  digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
+  currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
+  byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
+  if (currentNumber == 0) currentDigit = 10; // Dash
+  for (byte i = 0; i < 7; i++) {
+    bool isOn = !(bitRead(numberMap[currentDigit], i) && isDisplayOn);
+    digitalWrite(segmentPins[i], isOn);
+  }
+  digitalWrite(digitPins[currentDigitIndex], ON);
+}
 
 void setup() {
   Serial.begin(9600);
-  
+
   for (byte i = 0; i < 7; i++) {
     pinMode(segmentPins[i], OUTPUT);
     digitalWrite(segmentPins[i], OFF);
@@ -44,6 +76,9 @@ void setup() {
   for (byte i = 0; i < 3; i++) {
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
+
+  Timer1.initialize(10000); // call every 0.01 seconds
+  Timer1.attachInterrupt(DisplayCurrentNumber);
 }
 
 void TestSegments() {
@@ -89,20 +124,21 @@ void TestNumbers() {
 }
 
 void Refresh() {
-  digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
-  currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
-  byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
-  if (currentNumber==0) currentDigit = 10; // Dash
-  for (byte i = 0; i < 7; i++) {
-    digitalWrite(segmentPins[i], !bitRead(numberMap[currentDigit], i));
-  }
-  digitalWrite(digitPins[currentDigitIndex], ON);
+  //  digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
+  //  currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
+  //  byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
+  //  if (currentNumber == 0) currentDigit = 10; // Dash
+  //  for (byte i = 0; i < 7; i++) {
+  //    digitalWrite(segmentPins[i], !bitRead(numberMap[currentDigit], i));
+  //  }
+  //  digitalWrite(digitPins[currentDigitIndex], ON);
+  DisplayCurrentNumber();
   delay(10);
 }
 
-void ShowRandomNumber() {
-  if (digitalRead(buttonPins[0])==PRESSED) {
-    byte randomNumber = random(1,100);
+void ShuffleRandomNumber() {
+  if (digitalRead(buttonPins[0]) == PRESSED) {
+    byte randomNumber = random(1, 100);
     currentNumber = randomNumber;
   }
 }
@@ -110,15 +146,28 @@ void ShowRandomNumber() {
 
 #include "Magician.h"
 
-void NumberPicked() {
-  if ((currentNumber != 0) && (digitalRead(buttonPins[1])==PRESSED)) {
-    PrepareMagic(currentNumber);
-    currentNumber = 0;
+bool NumberPicked() {
+  if ((currentNumber != 0) && (digitalRead(buttonPins[1]) == PRESSED)) {
+    chosenNumber = currentNumber;
   }
+  return chosenNumber != 0;
 }
 
-void TakeaBow() {
-  Serial.println("TakeaBow");
+void Applause() {
+  Serial.println("Applause");
+  bool buttonPressed = false;
+  do {
+    isDisplayOn = !isDisplayOn;
+    for (byte i = 0; i < 5; i++) {
+      if (digitalRead(buttonPins[0]) == PRESSED) {
+        buttonPressed = true;
+      }
+      delay(50);
+    }
+  } while (!buttonPressed);
+  isDisplayOn = true;
+  
+  currentState = WAITING_FOR_CHOSEN_NUMBER;
 }
 
 
@@ -128,8 +177,15 @@ void loop() {
   //TestDigits();
   //TestButtons();
   //TestNumbers();
-  Refresh();
-  ShowRandomNumber();
-  NumberPicked();
-  PerformMagic();
+  //Refresh();
+
+  switch (currentState) {
+    case WAITING_FOR_CHOSEN_NUMBER:
+      ShuffleRandomNumber();
+      if (NumberPicked()) PrepareMagic();
+      break;
+    case WAITING_FOR_MAGICIAN:
+      PerformMagic();
+      break;
+  }
 }
