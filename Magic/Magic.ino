@@ -1,5 +1,11 @@
+/*
+ * Pick a number betweeen 1 and 99
+ * by Hari Wiguna, 2020
+ */
+
 const byte segmentPins[] = {2, 3, 4, 5, 6, 7, 8};
 const byte digitPins[] = {12, 13};
+const byte maxNumber = 99; // Max # that could be displayed with two digits
 const byte buttonPins[] = {9, 10, 11};
 const byte OFF = HIGH;
 const byte ON = LOW;
@@ -25,6 +31,8 @@ byte currentNumber = 13;
 byte currentDigitIndex = 0;
 
 void setup() {
+  Serial.begin(9600);
+  
   for (byte i = 0; i < 7; i++) {
     pinMode(segmentPins[i], OUTPUT);
     digitalWrite(segmentPins[i], OFF);
@@ -92,18 +100,28 @@ void Refresh() {
   delay(10);
 }
 
-void PickaNumber() {
+void ShowRandomNumber() {
   if (digitalRead(buttonPins[0])==PRESSED) {
     byte randomNumber = random(1,100);
     currentNumber = randomNumber;
   }
 }
 
+
+#include "Magician.h"
+
 void NumberPicked() {
   if (digitalRead(buttonPins[1])==PRESSED) {
+    PrepareMagic(currentNumber);
     currentNumber = 0;
   }
 }
+
+void TakeaBow() {
+  Serial.println("TakeaBow");
+}
+
+
 
 void loop() {
   //TestSegments();
@@ -111,17 +129,17 @@ void loop() {
   //TestButtons();
   //TestNumbers();
   Refresh();
-  PickaNumber();
+  ShowRandomNumber();
   NumberPicked();
+  PerformMagic();
 }
 
 /*
  * [A] User pick a secret number between 1 and 99
  * [B] Magician pick a random sentinel
- * [B] Magician decide how many guesses before showing secret#
- * [C] Magician fills guessNumbers array.  Last element is the secret#, before that is the sentinel
- * [D] Magician displays sentinel hint as first guess
+ * [C] Magician decide how many guesses before showing secret#
+ * [D] Magician fills guessNumbers array.  Last element is the secret#, before that is the sentinel
+ * [E] Magician displays sentinel hint as first guess
  * [F] Magician waits for accomplice response in button 3
  * [G] Magician keeps displaying prepared guess array and waiting for response
- */
  */
