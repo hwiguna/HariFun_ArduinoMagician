@@ -27,7 +27,6 @@ void PrintElement(String var, byte index, byte value) {
   Serial.print(var);
   Serial.print("[");
   Serial.print(index);
-  Serial.print("]=");
   Serial.println(value);
 }
 

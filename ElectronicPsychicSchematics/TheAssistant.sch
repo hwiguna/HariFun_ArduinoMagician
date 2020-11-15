@@ -1,0 +1,274 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Display_Character:HDSM-441B U0
+U 1 1 5FB1882B
+P 9900 4700
+F 0 "U0" H 9900 5367 50  0001 C CNN
+F 1 "Any two-digit 6-segment" H 9900 5275 50  0000 C CNN
+F 2 "Display:HDSM-441B_HDSM-443B" H 9900 4100 50  0001 C CNN
+F 3 "https://docs.broadcom.com/docs/AV02-1589EN" H 9680 4800 50  0001 C CNN
+	1    9900 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A1
+U 1 1 5FB1E8D9
+P 7950 5000
+F 0 "A1" H 7950 3911 50  0001 C CNN
+F 1 "Any Arduino" H 7950 5100 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 7950 5000 50  0001 C CIN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 7950 5000 50  0001 C CNN
+	1    7950 5000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small_US R3
+U 1 1 5FB247D7
+P 9100 4700
+F 0 "R3" V 8895 4700 50  0001 C CNN
+F 1 "R_Small_US" V 8986 4700 50  0001 C CNN
+F 2 "" H 9100 4700 50  0001 C CNN
+F 3 "~" H 9100 4700 50  0001 C CNN
+	1    9100 4700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9200 4600 9300 4600
+$Comp
+L Device:R_Small_US R2
+U 1 1 5FB22D5D
+P 9100 4600
+F 0 "R2" V 8987 4600 50  0001 C CNN
+F 1 "R_Small_US" V 8986 4600 50  0001 C CNN
+F 2 "" H 9100 4600 50  0001 C CNN
+F 3 "~" H 9100 4600 50  0001 C CNN
+	1    9100 4600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US All
+U 1 1 5FB26493
+P 9100 4400
+F 0 "All" V 8900 4400 50  0000 C CNN
+F 1 "220" V 8987 4400 50  0000 C CNN
+F 2 "" H 9100 4400 50  0001 C CNN
+F 3 "~" H 9100 4400 50  0001 C CNN
+	1    9100 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R4
+U 1 1 5FB26813
+P 9100 4800
+F 0 "R4" V 8987 4800 50  0001 C CNN
+F 1 "R_Small_US" V 8986 4800 50  0001 C CNN
+F 2 "" H 9100 4800 50  0001 C CNN
+F 3 "~" H 9100 4800 50  0001 C CNN
+	1    9100 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R5
+U 1 1 5FB269A2
+P 9100 4900
+F 0 "R5" V 8987 4900 50  0001 C CNN
+F 1 "R_Small_US" V 8986 4900 50  0001 C CNN
+F 2 "" H 9100 4900 50  0001 C CNN
+F 3 "~" H 9100 4900 50  0001 C CNN
+	1    9100 4900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R6
+U 1 1 5FB26C3A
+P 9100 5000
+F 0 "R6" V 8987 5000 50  0001 C CNN
+F 1 "R_Small_US" V 8986 5000 50  0001 C CNN
+F 2 "" H 9100 5000 50  0001 C CNN
+F 3 "~" H 9100 5000 50  0001 C CNN
+	1    9100 5000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R7
+U 1 1 5FB27113
+P 9100 5100
+F 0 "R7" V 8987 5100 50  0001 C CNN
+F 1 "R_Small_US" V 8986 5100 50  0001 C CNN
+F 2 "" H 9100 5100 50  0001 C CNN
+F 3 "~" H 9100 5100 50  0001 C CNN
+	1    9100 5100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9300 4400 9200 4400
+Wire Wire Line
+	9300 4800 9200 4800
+Wire Wire Line
+	9300 4900 9200 4900
+Wire Wire Line
+	9300 5000 9200 5000
+Wire Wire Line
+	9200 5100 9300 5100
+Wire Wire Line
+	8450 4600 9000 4600
+Wire Wire Line
+	8450 4700 9000 4700
+Wire Wire Line
+	8450 4800 9000 4800
+Wire Wire Line
+	9300 4700 9200 4700
+Wire Wire Line
+	9000 4900 8450 4900
+Wire Wire Line
+	8450 5000 9000 5000
+Wire Wire Line
+	9000 4400 8900 4400
+Wire Wire Line
+	8900 4400 8900 5200
+Wire Wire Line
+	8900 5200 8450 5200
+Wire Wire Line
+	8450 5100 9000 5100
+Wire Wire Line
+	10500 5000 10700 5000
+Wire Wire Line
+	10700 5000 10700 5600
+Wire Wire Line
+	10700 5600 8450 5600
+Wire Wire Line
+	10500 5100 10600 5100
+Wire Wire Line
+	10600 5100 10600 5700
+Wire Wire Line
+	10600 5700 8450 5700
+$Comp
+L power:GND #PWR0102
+U 1 1 5FB2F302
+P 8900 6050
+F 0 "#PWR0102" H 8900 5800 50  0001 C CNN
+F 1 "GND" H 8905 5877 50  0000 C CNN
+F 2 "" H 8900 6050 50  0001 C CNN
+F 3 "" H 8900 6050 50  0001 C CNN
+	1    8900 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW0
+U 1 1 5FB2FD08
+P 8700 5300
+F 0 "SW0" H 9050 5300 50  0000 C CNN
+F 1 "Shuffle" H 9200 5300 50  0000 L CNN
+F 2 "" H 8700 5500 50  0001 C CNN
+F 3 "~" H 8700 5500 50  0001 C CNN
+	1    8700 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5FB329E9
+P 8700 5400
+F 0 "SW1" H 9050 5400 50  0000 C CNN
+F 1 "Choose a number" H 9200 5400 50  0000 L CNN
+F 2 "" H 8700 5600 50  0001 C CNN
+F 3 "~" H 8700 5600 50  0001 C CNN
+	1    8700 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW2
+U 1 1 5FB32CF7
+P 8700 5500
+F 0 "SW2" H 9050 5500 50  0000 C CNN
+F 1 "Guess" H 9200 5500 50  0000 L CNN
+F 2 "" H 8700 5700 50  0001 C CNN
+F 3 "~" H 8700 5700 50  0001 C CNN
+	1    8700 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 5300 8450 5300
+Wire Wire Line
+	8500 5400 8450 5400
+Wire Wire Line
+	8500 5500 8450 5500
+NoConn ~ 9300 4500
+NoConn ~ 8450 4400
+NoConn ~ 8450 4500
+NoConn ~ 8050 4000
+NoConn ~ 7850 4000
+NoConn ~ 7750 4000
+NoConn ~ 7450 4400
+NoConn ~ 7450 4500
+NoConn ~ 7450 4800
+NoConn ~ 7450 5700
+NoConn ~ 7450 5600
+NoConn ~ 7450 5500
+NoConn ~ 7450 5400
+NoConn ~ 7450 5300
+NoConn ~ 7450 5200
+NoConn ~ 7450 5100
+NoConn ~ 7450 5000
+Wire Wire Line
+	8900 5300 8900 5400
+Wire Wire Line
+	8900 5400 8900 5500
+Connection ~ 8900 5400
+Connection ~ 8900 5500
+Wire Wire Line
+	8900 5500 8900 6050
+$Comp
+L power:GND #PWR0101
+U 1 1 5FB3FFC0
+P 7900 6050
+F 0 "#PWR0101" H 7900 5800 50  0001 C CNN
+F 1 "GND" H 7905 5877 50  0000 C CNN
+F 2 "" H 7900 6050 50  0001 C CNN
+F 3 "" H 7900 6050 50  0001 C CNN
+	1    7900 6050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 6000 7900 6000
+Wire Wire Line
+	7900 6050 7900 6000
+Connection ~ 7900 6000
+Wire Wire Line
+	7900 6000 7950 6000
+$Comp
+L power:PWR_FLAG #FLG01
+U 1 1 5FB43413
+P 9150 6050
+F 0 "#FLG01" H 9150 6125 50  0001 C CNN
+F 1 "PWR_FLAG" H 9150 6223 50  0000 C CNN
+F 2 "" H 9150 6050 50  0001 C CNN
+F 3 "~" H 9150 6050 50  0001 C CNN
+	1    9150 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 5FB44C53
+P 9150 6050
+F 0 "#PWR01" H 9150 5800 50  0001 C CNN
+F 1 "GND" H 9155 5877 50  0000 C CNN
+F 2 "" H 9150 6050 50  0001 C CNN
+F 3 "" H 9150 6050 50  0001 C CNN
+	1    9150 6050
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

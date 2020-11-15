@@ -1,3 +1,5 @@
+// Don't study this file unless you want to ruin the trick. :-)
+
 const byte maxNumberOfGuesses = 9;
 byte guesses[maxNumberOfGuesses];
 byte numberOfGuesses;
@@ -140,7 +142,6 @@ void PerformMagic() {
     }
   }
 }
-
 
 /*
    [A] User pick a secret number between 1 and 99

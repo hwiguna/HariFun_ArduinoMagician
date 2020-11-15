@@ -1,0 +1,252 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Display_Character:HDSM-441B U0
+U 1 1 5FB1882B
+P 4250 1700
+F 0 "U0" H 4250 2367 50  0001 C CNN
+F 1 "Any two-digit 6-segment" H 4250 2275 50  0000 C CNN
+F 2 "Display:HDSM-441B_HDSM-443B" H 4250 1100 50  0001 C CNN
+F 3 "https://docs.broadcom.com/docs/AV02-1589EN" H 4030 1800 50  0001 C CNN
+	1    4250 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A?
+U 1 1 5FB1E8D9
+P 2300 2000
+F 0 "A?" H 2300 911 50  0001 C CNN
+F 1 "Any Arduino" H 2300 2100 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 2300 2000 50  0001 C CIN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 2300 2000 50  0001 C CNN
+	1    2300 2000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB247D7
+P 3450 1700
+F 0 "R?" V 3245 1700 50  0001 C CNN
+F 1 "R_Small_US" V 3336 1700 50  0001 C CNN
+F 2 "" H 3450 1700 50  0001 C CNN
+F 3 "~" H 3450 1700 50  0001 C CNN
+	1    3450 1700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3550 1600 3650 1600
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB22D5D
+P 3450 1600
+F 0 "R?" V 3337 1600 50  0001 C CNN
+F 1 "R_Small_US" V 3336 1600 50  0001 C CNN
+F 2 "" H 3450 1600 50  0001 C CNN
+F 3 "~" H 3450 1600 50  0001 C CNN
+	1    3450 1600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB26493
+P 3450 1400
+F 0 "R?" V 3337 1400 50  0001 C CNN
+F 1 "220" V 3337 1400 50  0000 C CNN
+F 2 "" H 3450 1400 50  0001 C CNN
+F 3 "~" H 3450 1400 50  0001 C CNN
+	1    3450 1400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB26813
+P 3450 1800
+F 0 "R?" V 3337 1800 50  0001 C CNN
+F 1 "R_Small_US" V 3336 1800 50  0001 C CNN
+F 2 "" H 3450 1800 50  0001 C CNN
+F 3 "~" H 3450 1800 50  0001 C CNN
+	1    3450 1800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB269A2
+P 3450 1900
+F 0 "R?" V 3337 1900 50  0001 C CNN
+F 1 "R_Small_US" V 3336 1900 50  0001 C CNN
+F 2 "" H 3450 1900 50  0001 C CNN
+F 3 "~" H 3450 1900 50  0001 C CNN
+	1    3450 1900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB26C3A
+P 3450 2000
+F 0 "R?" V 3337 2000 50  0001 C CNN
+F 1 "R_Small_US" V 3336 2000 50  0001 C CNN
+F 2 "" H 3450 2000 50  0001 C CNN
+F 3 "~" H 3450 2000 50  0001 C CNN
+	1    3450 2000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small_US R?
+U 1 1 5FB27113
+P 3450 2100
+F 0 "R?" V 3337 2100 50  0001 C CNN
+F 1 "R_Small_US" V 3336 2100 50  0001 C CNN
+F 2 "" H 3450 2100 50  0001 C CNN
+F 3 "~" H 3450 2100 50  0001 C CNN
+	1    3450 2100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3650 1400 3550 1400
+Wire Wire Line
+	3650 1800 3550 1800
+Wire Wire Line
+	3650 1900 3550 1900
+Wire Wire Line
+	3650 2000 3550 2000
+Wire Wire Line
+	3550 2100 3650 2100
+Wire Wire Line
+	2800 1600 3350 1600
+Wire Wire Line
+	2800 1700 3350 1700
+Wire Wire Line
+	2800 1800 3350 1800
+Wire Wire Line
+	3650 1700 3550 1700
+Wire Wire Line
+	3350 1900 2800 1900
+Wire Wire Line
+	2800 2000 3350 2000
+Wire Wire Line
+	3350 1400 3250 1400
+Wire Wire Line
+	3250 1400 3250 2200
+Wire Wire Line
+	3250 2200 2800 2200
+Wire Wire Line
+	2800 2100 3350 2100
+$Comp
+L power:GND #PWR?
+U 1 1 5FB2CC42
+P 2250 3050
+F 0 "#PWR?" H 2250 2800 50  0001 C CNN
+F 1 "GND" H 2255 2877 50  0000 C CNN
+F 2 "" H 2250 3050 50  0001 C CNN
+F 3 "" H 2250 3050 50  0001 C CNN
+	1    2250 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 3000 2250 3000
+Wire Wire Line
+	2250 3050 2250 3000
+Connection ~ 2250 3000
+Wire Wire Line
+	2250 3000 2300 3000
+Wire Wire Line
+	4850 2000 5050 2000
+Wire Wire Line
+	5050 2000 5050 2600
+Wire Wire Line
+	5050 2600 2800 2600
+Wire Wire Line
+	4850 2100 4950 2100
+Wire Wire Line
+	4950 2100 4950 2700
+Wire Wire Line
+	4950 2700 2800 2700
+$Comp
+L power:GND #PWR?
+U 1 1 5FB2F302
+P 3250 3050
+F 0 "#PWR?" H 3250 2800 50  0001 C CNN
+F 1 "GND" H 3255 2877 50  0000 C CNN
+F 2 "" H 3250 3050 50  0001 C CNN
+F 3 "" H 3250 3050 50  0001 C CNN
+	1    3250 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW0
+U 1 1 5FB2FD08
+P 3050 2300
+F 0 "SW0" H 3400 2300 50  0000 C CNN
+F 1 "Shuffle" H 3550 2300 50  0000 L CNN
+F 2 "" H 3050 2500 50  0001 C CNN
+F 3 "~" H 3050 2500 50  0001 C CNN
+	1    3050 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5FB329E9
+P 3050 2400
+F 0 "SW1" H 3400 2400 50  0000 C CNN
+F 1 "Choose a number" H 3550 2400 50  0000 L CNN
+F 2 "" H 3050 2600 50  0001 C CNN
+F 3 "~" H 3050 2600 50  0001 C CNN
+	1    3050 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW2
+U 1 1 5FB32CF7
+P 3050 2500
+F 0 "SW2" H 3400 2500 50  0000 C CNN
+F 1 "Guess" H 3550 2500 50  0000 L CNN
+F 2 "" H 3050 2700 50  0001 C CNN
+F 3 "~" H 3050 2700 50  0001 C CNN
+	1    3050 2500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 2300 2800 2300
+Wire Wire Line
+	2850 2400 2800 2400
+Wire Wire Line
+	2850 2500 2800 2500
+NoConn ~ 3650 1500
+NoConn ~ 2800 1400
+NoConn ~ 2800 1500
+NoConn ~ 2400 1000
+NoConn ~ 2200 1000
+NoConn ~ 2100 1000
+NoConn ~ 1800 1400
+NoConn ~ 1800 1500
+NoConn ~ 1800 1800
+NoConn ~ 1800 2700
+NoConn ~ 1800 2600
+NoConn ~ 1800 2500
+NoConn ~ 1800 2400
+NoConn ~ 1800 2300
+NoConn ~ 1800 2200
+NoConn ~ 1800 2100
+NoConn ~ 1800 2000
+Wire Wire Line
+	3250 2300 3250 2400
+Wire Wire Line
+	3250 2400 3250 2500
+Connection ~ 3250 2400
+Connection ~ 3250 2500
+Wire Wire Line
+	3250 2500 3250 3050
+$EndSCHEMATC

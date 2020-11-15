@@ -42,8 +42,7 @@ const byte rowPowerPins[] = {A4, A5, 9, 10};
 const byte colReadPins[] = {A0, A1, A2, A3};
 const char keypadMap[] = {'1', '2', '3', 'A', '4', '5', '6', 'B', '7', '8', '9', 'C', '*', '0', '#', 'D'};
 
-void DisplayCurrentNumber(void)
-{
+void DisplayCurrentNumber(void) {
   digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
   currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
   byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
