@@ -32,9 +32,9 @@ byte currentNumber = 0; //random(1, maxNumber + 1);
 volatile byte currentDigitIndex = 0;
 volatile bool isDisplayOn[2] = {true, true};
 
+// Data entry states:
 #define WAITING_FOR_FIRST_DIGIT  0
 #define WAITING_FOR_SECOND_DIGIT 1
-#define BE_PSYCHIC 2
 byte currentState = WAITING_FOR_FIRST_DIGIT;
 
 //=== Keypad ===
@@ -164,20 +164,25 @@ byte ReadKeypad() {
 
 void Applause() {
   Serial.println("Applause");
-  //  bool buttonPressed = false;
-  //  do {
-  //    isDisplayOn = !isDisplayOn;
-  //    for (byte i = 0; i < 5; i++) {
-  //      if (digitalRead(buttonPins[0]) == PRESSED) {
-  //        buttonPressed = true;
-  //      }
-  //      delay(50);
-  //    }
-  //  } while (!buttonPressed);
+    bool buttonPressed = false;
+    do {
+      isDisplayOn[0] = !isDisplayOn[0];
+      isDisplayOn[1] = !isDisplayOn[1];
+      for (byte i = 0; i < 5; i++) {
+        byte keyPressedIndex = ReadKeypad();
+        if (keyPressedIndex != 99) {
+          buttonPressed = true;
+        }
+        delay(50);
+      }
+    } while (!buttonPressed);
   isDisplayOn[0] = true;
   isDisplayOn[1] = true;
 
+  currentNumber = 0; // back to "--"
   currentState = WAITING_FOR_FIRST_DIGIT;
+  magicState = HAS_NOTHING;
+  delay(1000);
 }
 
 void TestKeypad() {

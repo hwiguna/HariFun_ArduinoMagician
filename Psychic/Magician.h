@@ -1,3 +1,11 @@
+// States of the magic trick
+#define HAS_NOTHING 0
+#define HAS_HINT 1
+#define HAS_SENTINEL 2
+#define HAS_SEEN_SENTINEL 3
+#define HAS_COMPLETED 4
+byte magicState;
+
 const byte maxNumberOfGuesses = 9;
 byte guesses[maxNumberOfGuesses];
 byte numberOfGuesses;
@@ -151,12 +159,41 @@ void ProcessFirstDigit(char keypress) {
   }
 }
 
+void SaveSentinel() {
+  sentinelHint = currentNumber;
+  magicState = HAS_HINT;
+  Print("HAS_HINT. sentinelHint", sentinelHint);
+
+  sentinelNumber = HintToSentinel(sentinelHint);
+
+  magicState = HAS_SENTINEL;
+  Print("HAS_SENTINEL. sentinelDigit", sentinelDigit);
+  Print("isSentinelOnLeft", isSentinelOnLeft);  // We will be looking for sentinel on left/right
+}
+
+void CheckForSentinel(byte currentNumber) {
+  Print("CheckForSentinel. currentNumber", currentNumber);
+  byte potentialSentinelDigit = isSentinelOnLeft ? currentNumber / 10 : currentNumber % 10;
+  if (potentialSentinelDigit == sentinelDigit) {
+    magicState = HAS_SEEN_SENTINEL;
+    Print("HAS_SEEN_SENTINEL! currentNumber", currentNumber);
+  }
+}
+
 void ProcessSecondDigit(char keypress) {
+  Print("ProcessSecondDigit. keypress char",keypress);
   if (keypress >= '0' && keypress <= '9') {
     currentNumber = currentNumber + (keypress - '0');
     isDisplayOn[0] = true; // ones
     isDisplayOn[1] = true;  // tens
-    currentState = BE_PSYCHIC;
+    currentState = WAITING_FOR_FIRST_DIGIT;
+
+    Print("magicState",magicState);
+    switch (magicState) {
+      case HAS_NOTHING: SaveSentinel(); break;
+      case HAS_SENTINEL: CheckForSentinel(currentNumber); break;
+      case HAS_SEEN_SENTINEL: Applause(); break;
+    }
   }
 }
 

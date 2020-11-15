@@ -77,8 +77,8 @@ void setup() {
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
 
-  //  Timer1.initialize(10000); // call every 0.01 seconds
-  //  Timer1.attachInterrupt(DisplayCurrentNumber);
+    Timer1.initialize(10000); // call every 0.01 seconds
+    Timer1.attachInterrupt(DisplayCurrentNumber);
 }
 
 void TestSegments() {
@@ -178,19 +178,19 @@ void Applause() {
 
 
 void loop() {
-  TestSegments();
+  //TestSegments();
   //TestDigits();
   //TestButtons();
   //TestNumbers();
   //Refresh();
   //
-  //  switch (currentState) {
-  //    case WAITING_FOR_CHOSEN_NUMBER:
-  //      ShuffleRandomNumber();
-  //      if (NumberPicked()) PrepareMagic();
-  //      break;
-  //    case WAITING_FOR_MAGICIAN:
-  //      PerformMagic();
-  //      break;
-  //  }
+    switch (currentState) {
+      case WAITING_FOR_CHOSEN_NUMBER:
+        ShuffleRandomNumber();
+        if (NumberPicked()) PrepareMagic();
+        break;
+      case WAITING_FOR_MAGICIAN:
+        PerformMagic();
+        break;
+    }
 }
