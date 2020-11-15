@@ -88,59 +88,88 @@ void GenerateGuesses() {
 
 //------------------------------------
 
-void PrepareMagic() {
-  Print("\nPrepareMagic. chosenNumber", chosenNumber);
-  numberOfGuesses = random(3, maxNumberOfGuesses + 1);
-  Print("numberOfGuesses", numberOfGuesses);
-
-  do {
-    sentinelHint = PickHint();
-    sentinelNumber = HintToSentinel(sentinelHint);
-  } while ((sentinelHint == chosenNumber) || (sentinelNumber == chosenNumber));
-
-  Print("chosenNumber", chosenNumber);
-  Print("sentinelHint", sentinelHint);
-  Print("sentinelNumber", sentinelNumber);
-
-  GenerateGuesses();
-  currentState = WAITING_FOR_GUESS;
-}
+//void PrepareMagic() {
+//  Print("\nPrepareMagic. chosenNumber", chosenNumber);
+//  numberOfGuesses = random(3, maxNumberOfGuesses + 1);
+//  Print("numberOfGuesses", numberOfGuesses);
+//
+//  do {
+//    sentinelHint = PickHint();
+//    sentinelNumber = HintToSentinel(sentinelHint);
+//  } while ((sentinelHint == chosenNumber) || (sentinelNumber == chosenNumber));
+//
+//  Print("chosenNumber", chosenNumber);
+//  Print("sentinelHint", sentinelHint);
+//  Print("sentinelNumber", sentinelNumber);
+//
+//  GenerateGuesses();
+//  currentState = WAITING_FOR_GUESS;
+//}
 
 void PerformMagic() {
   Serial.println("PerformMagic");
-//  // First, show "--" to indicate start of guesses...
-//  currentNumber = 0;
-//  byte pressedButtonIndex;
-//  do {
-//    pressedButtonIndex = WaitForButton();
-//    if (pressedButtonIndex == 0) {currentState = WAITING_FOR_CHOSEN_NUMBER; break;}
-//    if (pressedButtonIndex == 2) {currentState = WAITING_FOR_NEXT_GUESS; break;}
-//  } while (true);
-//
-//  if (currentState == WAITING_FOR_NEXT_GUESS) {
-//    if (numberOfGuesses != 0) { // Make sure PrepareMagic() has filled the guesses array()
-//      for (byte i = 0; i < numberOfGuesses; i++) {
-//        Serial.print("Guess["); Serial.print(i); Print("]", guesses[i]);
-//      }
-//      for (byte guessIndex = 0; guessIndex < numberOfGuesses; guessIndex++) {
-//        PrintElement("guesses", guessIndex, guesses[guessIndex]);
-//        currentNumber = guesses[guessIndex];
-//        do {
-//          //Refresh();
-//          delay(100);
-//        } while (digitalRead(buttonPins[2]) != PRESSED);
-//
-//        delay(500);
-//      }
-//
-//      currentState = WAITING_FOR_NEXT_TRICK;
-//      Applause(); // until they press button 0 to get another random#
-//      numberOfGuesses = 0; // Get ready for next show
-//      chosenNumber = 0;
-//    }
-//  }
+  //  // First, show "--" to indicate start of guesses...
+  //  currentNumber = 0;
+  //  byte pressedButtonIndex;
+  //  do {
+  //    pressedButtonIndex = WaitForButton();
+  //    if (pressedButtonIndex == 0) {currentState = WAITING_FOR_CHOSEN_NUMBER; break;}
+  //    if (pressedButtonIndex == 2) {currentState = WAITING_FOR_NEXT_GUESS; break;}
+  //  } while (true);
+  //
+  //  if (currentState == WAITING_FOR_NEXT_GUESS) {
+  //    if (numberOfGuesses != 0) { // Make sure PrepareMagic() has filled the guesses array()
+  //      for (byte i = 0; i < numberOfGuesses; i++) {
+  //        Serial.print("Guess["); Serial.print(i); Print("]", guesses[i]);
+  //      }
+  //      for (byte guessIndex = 0; guessIndex < numberOfGuesses; guessIndex++) {
+  //        PrintElement("guesses", guessIndex, guesses[guessIndex]);
+  //        currentNumber = guesses[guessIndex];
+  //        do {
+  //          //Refresh();
+  //          delay(100);
+  //        } while (digitalRead(buttonPins[2]) != PRESSED);
+  //
+  //        delay(500);
+  //      }
+  //
+  //      currentState = WAITING_FOR_NEXT_TRICK;
+  //      Applause(); // until they press button 0 to get another random#
+  //      numberOfGuesses = 0; // Get ready for next show
+  //      chosenNumber = 0;
+  //    }
+  //  }
 }
 
+void ProcessFirstDigit(char keypress) {
+
+  if (keypress >= '0' && keypress <= '9') {
+    currentNumber = (keypress - '0') * 10;
+    isDisplayOn[0] = false; // ones
+    isDisplayOn[1] = true;  // tens
+    currentState = WAITING_FOR_SECOND_DIGIT;
+  }
+}
+
+void ProcessSecondDigit(char keypress) {
+  if (keypress >= '0' && keypress <= '9') {
+    currentNumber = currentNumber + (keypress - '0');
+    isDisplayOn[0] = true; // ones
+    isDisplayOn[1] = true;  // tens
+    currentState = BE_PSYCHIC;
+  }
+}
+
+void ProcessKeypress(char keypress) {
+  switch (currentState) {
+    case WAITING_FOR_FIRST_DIGIT:
+      ProcessFirstDigit(keypress);
+      break;
+    case WAITING_FOR_SECOND_DIGIT:
+      ProcessSecondDigit(keypress);
+      break;
+  }
+}
 
 /*
    [A] User pick a secret number between 1 and 99

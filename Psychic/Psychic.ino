@@ -28,14 +28,14 @@ const byte numberMap[] = {
   //B01010011,  // ?
 };
 
-byte currentNumber = random(1, maxNumber + 1);
+byte currentNumber = 0; //random(1, maxNumber + 1);
 volatile byte currentDigitIndex = 0;
-volatile bool isDisplayOn = true;
+volatile bool isDisplayOn[2] = {true, true};
 
-#define WAITING_FOR_HINT  0
-#define WAITING_FOR_GUESS 1
-#define WAITING_FOR_NEXT_TRICK  2
-byte currentState = WAITING_FOR_HINT;
+#define WAITING_FOR_FIRST_DIGIT  0
+#define WAITING_FOR_SECOND_DIGIT 1
+#define BE_PSYCHIC 2
+byte currentState = WAITING_FOR_FIRST_DIGIT;
 
 //=== Keypad ===
 const byte rowPowerPins[] = {A4, A5, 9, 10};
@@ -49,7 +49,7 @@ void DisplayCurrentNumber(void)
   byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
   if (currentNumber == 0) currentDigit = 10; // Dash
   for (byte i = 0; i < 7; i++) {
-    bool isOn = !(bitRead(numberMap[currentDigit], i) && isDisplayOn);
+    bool isOn = !(bitRead(numberMap[currentDigit], i) && isDisplayOn[currentDigitIndex]);
     digitalWrite(segmentPins[i], isOn);
   }
   digitalWrite(digitPins[currentDigitIndex], ON);
@@ -64,7 +64,6 @@ void SetupKeypad() {
     pinMode(colReadPins[c], INPUT_PULLUP);
   }
 }
-
 
 void setup() {
   Serial.begin(9600);
@@ -175,9 +174,10 @@ void Applause() {
   //      delay(50);
   //    }
   //  } while (!buttonPressed);
-  isDisplayOn = true;
+  isDisplayOn[0] = true;
+  isDisplayOn[1] = true;
 
-  currentState = WAITING_FOR_HINT;
+  currentState = WAITING_FOR_FIRST_DIGIT;
 }
 
 void TestKeypad() {
@@ -193,22 +193,37 @@ void TestKeypad() {
   }
 }
 
+char WaitForKeypress() {
+  byte keyPressedIndex;
+  // Wait for a key to be pressed
+  do {
+    keyPressedIndex = ReadKeypad();
+  } while (keyPressedIndex == 99);
+
+  // Wait for that key to be released
+  while (ReadKeypad() == keyPressedIndex)
+    delay(250);
+
+  char ch = keypadMap[keyPressedIndex];
+  Serial.println(ch);
+
+  return ch;
+}
 
 void loop() {
   //TestSegments();
-  TestKeypad();
+  //TestKeypad();
   //TestDigits();
   //TestButtons();
   //TestNumbers();
   //Refresh();
   //
-  //  switch (currentState) {
-  //    case WAITING_FOR_CHOSEN_NUMBER:
-  //      ShuffleRandomNumber();
-  //      if (NumberPicked()) PrepareMagic();
-  //      break;
-  //    case WAITING_FOR_MAGICIAN:
-  //      PerformMagic();
-  //      break;
-  //  }
+  switch (currentState) {
+    case WAITING_FOR_FIRST_DIGIT:
+      ProcessKeypress( WaitForKeypress() );
+      break;
+    case WAITING_FOR_SECOND_DIGIT:
+      ProcessKeypress( WaitForKeypress() );
+      break;
+  }
 }
