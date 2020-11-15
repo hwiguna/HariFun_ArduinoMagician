@@ -1,14 +1,13 @@
 #include <TimerOne.h>
 
 /*
-   Pick a number betweeen 1 and 99
+   Knows what was picked by another Arduino!
    by Hari Wiguna, 2020
 */
 
 const byte segmentPins[] = {2, 3, 4, 5, 6, 7, 8};
 const byte digitPins[] = {12, 13};
 const byte maxNumber = 99; // Max # that could be displayed with two digits
-const byte buttonPins[] = {9, 10, 11};
 const byte OFF = HIGH;
 const byte ON = LOW;
 const byte PRESSED = LOW;
@@ -33,21 +32,15 @@ byte currentNumber = random(1, maxNumber + 1);
 volatile byte currentDigitIndex = 0;
 volatile bool isDisplayOn = true;
 
-#define WAITING_FOR_CHOSEN_NUMBER  0
-#define WAITING_FOR_MAGICIAN  1
-#define WAITING_FOR_NEXT_GUESS  2
-#define WAITING_FOR_NEXT_TRICK  3
-byte currentState = WAITING_FOR_CHOSEN_NUMBER;
+#define WAITING_FOR_HINT  0
+#define WAITING_FOR_GUESS 1
+#define WAITING_FOR_NEXT_TRICK  2
+byte currentState = WAITING_FOR_HINT;
 
-byte WaitForButton() {
-  byte pressedButtonIndex = -1; // none pressed
-  do {
-    delay(100);
-    for (byte buttonIndex = 0; buttonIndex < 3; buttonIndex++)
-      if (digitalRead(buttonPins[buttonIndex]) == PRESSED) pressedButtonIndex = buttonIndex;
-  } while (pressedButtonIndex == -1);
-  return pressedButtonIndex;
-}
+//=== Keypad ===
+const byte rowPowerPins[] = {A4, A5, 9, 10};
+const byte colReadPins[] = {A0, A1, A2, A3};
+const char keypadMap[] = {'1', '2', '3', 'A', '4', '5', '6', 'B', '7', '8', '9', 'C', '*', '0', '#', 'D'};
 
 void DisplayCurrentNumber(void)
 {
@@ -62,6 +55,17 @@ void DisplayCurrentNumber(void)
   digitalWrite(digitPins[currentDigitIndex], ON);
 }
 
+void SetupKeypad() {
+  for (byte r = 0; r < 4; r++) {
+    pinMode(rowPowerPins[r], OUTPUT);
+    digitalWrite(rowPowerPins[r], HIGH);
+  }
+  for (byte c = 0; c < 4; c++) {
+    pinMode(colReadPins[c], INPUT_PULLUP);
+  }
+}
+
+
 void setup() {
   Serial.begin(9600);
 
@@ -73,12 +77,11 @@ void setup() {
     pinMode(digitPins[i], OUTPUT);
     digitalWrite(digitPins[i], ON);
   }
-  for (byte i = 0; i < 3; i++) {
-    pinMode(buttonPins[i], INPUT_PULLUP);
-  }
 
-  //  Timer1.initialize(10000); // call every 0.01 seconds
-  //  Timer1.attachInterrupt(DisplayCurrentNumber);
+  SetupKeypad();
+
+  Timer1.initialize(10000); // call every 0.01 seconds
+  Timer1.attachInterrupt(DisplayCurrentNumber);
 }
 
 void TestSegments() {
@@ -99,23 +102,6 @@ void TestSegments() {
 void TestDigits() {
   digitalWrite(digitPins[0], ON); digitalWrite(digitPins[1], OFF); delay(500);
   digitalWrite(digitPins[0], OFF); digitalWrite(digitPins[1], ON); delay(500);
-}
-
-void TestButtons() {
-  digitalWrite(segmentPins[6], ON);
-  for (byte i = 0; i < 2; i++) {
-    if (digitalRead(buttonPins[0]) == PRESSED) {
-      digitalWrite(digitPins[0], ON); digitalWrite(digitPins[1], OFF);
-    }
-
-    if (digitalRead(buttonPins[1]) == PRESSED) {
-      digitalWrite(digitPins[0], OFF); digitalWrite(digitPins[1], ON);
-    }
-
-    if (digitalRead(buttonPins[2]) == PRESSED) {
-      digitalWrite(digitPins[0], OFF); digitalWrite(digitPins[1], OFF);
-    }
-  }
 }
 
 void TestNumbers() {
@@ -142,43 +128,75 @@ void Refresh() {
 }
 
 void ShuffleRandomNumber() {
-  if (digitalRead(buttonPins[0]) == PRESSED) {
-    byte randomNumber = random(1, 100);
-    currentNumber = randomNumber;
-  }
+  //  if (digitalRead(buttonPins[0]) == PRESSED) {
+  //    byte randomNumber = random(1, 100);
+  //    currentNumber = randomNumber;
+  //  }
 }
 
 
 #include "Magician.h"
 
-bool NumberPicked() {
-  if ((currentNumber != 0) && (digitalRead(buttonPins[1]) == PRESSED)) {
-    chosenNumber = currentNumber;
+
+byte ReadKeypad() {
+  byte keyPressed = 99;
+  for (byte r = 0; r < 4; r++) {
+    //Print("\nr", r);
+    digitalWrite(rowPowerPins[r], LOW);
+    for (byte c = 0; c < 4; c++) {
+      //Print("c", c);
+      if (digitalRead(colReadPins[c]) == 0) {
+        keyPressed = r * 4 + c;
+        //Print("keyPressed", keyPressed);
+      }
+    }
+    digitalWrite(rowPowerPins[r], HIGH);
+    //if (keyPressed != 99) break;
   }
-  return chosenNumber != 0;
+  return keyPressed;
 }
+
+//bool NumberPicked() {
+//  if ((currentNumber != 0) && (digitalRead(buttonPins[1]) == PRESSED)) {
+//    chosenNumber = currentNumber;
+//  }
+//  return chosenNumber != 0;
+//}
 
 void Applause() {
   Serial.println("Applause");
-  bool buttonPressed = false;
-  do {
-    isDisplayOn = !isDisplayOn;
-    for (byte i = 0; i < 5; i++) {
-      if (digitalRead(buttonPins[0]) == PRESSED) {
-        buttonPressed = true;
-      }
-      delay(50);
-    }
-  } while (!buttonPressed);
+  //  bool buttonPressed = false;
+  //  do {
+  //    isDisplayOn = !isDisplayOn;
+  //    for (byte i = 0; i < 5; i++) {
+  //      if (digitalRead(buttonPins[0]) == PRESSED) {
+  //        buttonPressed = true;
+  //      }
+  //      delay(50);
+  //    }
+  //  } while (!buttonPressed);
   isDisplayOn = true;
 
-  currentState = WAITING_FOR_CHOSEN_NUMBER;
+  currentState = WAITING_FOR_HINT;
+}
+
+void TestKeypad() {
+  byte keyPressedIndex = ReadKeypad();
+  currentNumber = keyPressedIndex;
+  if (keyPressedIndex != 99) {
+    char ch = keypadMap[keyPressedIndex];
+    //Print("ch", ch);
+    Serial.println(ch);
+
+    while (ReadKeypad() == keyPressedIndex)
+      delay(250);
+  }
 }
 
 
-
 void loop() {
-  TestSegments();
+  //TestSegments();
+  TestKeypad();
   //TestDigits();
   //TestButtons();
   //TestNumbers();
