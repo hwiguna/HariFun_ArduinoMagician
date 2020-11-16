@@ -46,7 +46,7 @@ void DisplayCurrentNumber(void) {
   digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
   currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
   byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
-  if (currentNumber == 0) currentDigit = 10; // Dash
+  if (currentNumber == 0 && currentState == WAITING_FOR_FIRST_DIGIT) currentDigit = 10; // Dash
   for (byte i = 0; i < 7; i++) {
     bool isOn = !(bitRead(numberMap[currentDigit], i) && isDisplayOn[currentDigitIndex]);
     digitalWrite(segmentPins[i], isOn);

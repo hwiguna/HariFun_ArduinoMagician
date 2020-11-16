@@ -18,7 +18,7 @@ void setup() {
   }
   for (byte i = 0; i < 2; i++) {
     pinMode(digitPins[i], OUTPUT);
-    digitalWrite(digitPins[i], ON);
+    digitalWrite(digitPins[i], LOW);
   }
 }
 

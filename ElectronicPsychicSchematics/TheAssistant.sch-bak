@@ -18,7 +18,7 @@ L Display_Character:HDSM-441B U0
 U 1 1 5FB1882B
 P 9900 4700
 F 0 "U0" H 9900 5367 50  0001 C CNN
-F 1 "Any two-digit Common Anode" H 9900 5275 50  0000 C CNN
+F 1 "Any two-digit 7-segment" H 9900 5275 50  0000 C CNN
 F 2 "Display:HDSM-441B_HDSM-443B" H 9900 4100 50  0001 C CNN
 F 3 "https://docs.broadcom.com/docs/AV02-1589EN" H 9680 4800 50  0001 C CNN
 	1    9900 4700
