@@ -1,6 +1,6 @@
 // Don't study this file unless you want to ruin the trick. :-)
 
-const byte maxNumberOfGuesses = 9;
+const byte maxNumberOfGuesses = 6;
 byte guesses[maxNumberOfGuesses];
 byte numberOfGuesses;
 byte sentinelHint;
