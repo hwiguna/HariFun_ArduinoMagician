@@ -206,13 +206,3 @@ void ProcessKeypress(char keypress) {
       break;
   }
 }
-
-/*
-   [A] User pick a secret number between 1 and 99
-   [B] Magician pick a random sentinel
-   [C] Magician decide how many guesses before showing secret#
-   [D] Magician fills guessNumbers array.  Last element is the secret#, before that is the sentinel
-   [E] Magician displays sentinel hint as first guess
-   [F] Magician waits for accomplice response in button 3
-   [G] Magician keeps displaying prepared guess array and waiting for response
-*/
