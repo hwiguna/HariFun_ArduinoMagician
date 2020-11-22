@@ -1,6 +1,6 @@
 # Psychic Arduino
 
-![Photo of the project](https://raw.githubusercontent.com/hwiguna/HariFun_ArduinoMagician/master/Images/Project Photo.jpg)
+![Photo of the project](https://github.com/hwiguna/HariFun_ArduinoMagician/blob/master/Project%20Photo.jpg)
 
 Psychic Arduino
 
