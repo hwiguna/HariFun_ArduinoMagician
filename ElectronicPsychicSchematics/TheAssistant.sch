@@ -38,10 +38,10 @@ F 3 "~" H 9100 4500 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R_Small_US All
+L Device:R_Small_US All1
 U 1 1 5FB26493
 P 9100 4400
-F 0 "All" V 8900 4400 50  0000 C CNN
+F 0 "All1" V 8900 4400 50  0000 C CNN
 F 1 "220" V 8987 4400 50  0000 C CNN
 F 2 "" H 9100 4400 50  0001 C CNN
 F 3 "~" H 9100 4400 50  0001 C CNN
@@ -105,17 +105,9 @@ Wire Wire Line
 Wire Wire Line
 	9300 4500 9200 4500
 Wire Wire Line
-	10500 5000 10700 5000
+	10100 5400 8450 5400
 Wire Wire Line
-	10700 5000 10700 5400
-Wire Wire Line
-	10700 5400 8450 5400
-Wire Wire Line
-	10500 5100 10600 5100
-Wire Wire Line
-	10600 5100 10600 5500
-Wire Wire Line
-	10600 5500 8450 5500
+	9750 5500 8450 5500
 $Comp
 L power:GND #PWR0102
 U 1 1 5FB2F302
@@ -130,34 +122,23 @@ $EndComp
 $Comp
 L Switch:SW_Push SW0
 U 1 1 5FB2FD08
-P 9100 5600
-F 0 "SW0" H 9450 5600 50  0000 C CNN
-F 1 "Shuffle" H 9600 5600 50  0000 L CNN
-F 2 "" H 9100 5800 50  0001 C CNN
-F 3 "~" H 9100 5800 50  0001 C CNN
-	1    9100 5600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Push SW1
-U 1 1 5FB329E9
 P 9100 5750
-F 0 "SW1" H 9450 5750 50  0000 C CNN
-F 1 "Choose a number" H 9600 5750 50  0000 L CNN
+F 0 "SW0" H 9450 5750 50  0000 C CNN
+F 1 "Shuffle" H 9600 5750 50  0000 L CNN
 F 2 "" H 9100 5950 50  0001 C CNN
 F 3 "~" H 9100 5950 50  0001 C CNN
 	1    9100 5750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_Push SW2
-U 1 1 5FB32CF7
-P 9100 5950
-F 0 "SW2" H 9450 5950 50  0000 C CNN
-F 1 "Guess" H 9600 5950 50  0000 L CNN
-F 2 "" H 9100 6150 50  0001 C CNN
-F 3 "~" H 9100 6150 50  0001 C CNN
-	1    9100 5950
+L Switch:SW_Push SW1
+U 1 1 5FB329E9
+P 9100 5900
+F 0 "SW1" H 9450 5900 50  0000 C CNN
+F 1 "Choose a number" H 9600 5900 50  0000 L CNN
+F 2 "" H 9100 6100 50  0001 C CNN
+F 3 "~" H 9100 6100 50  0001 C CNN
+	1    9100 5900
 	1    0    0    -1  
 $EndComp
 NoConn ~ 9300 5100
@@ -178,13 +159,8 @@ NoConn ~ 7450 5000
 NoConn ~ 7450 4900
 NoConn ~ 7450 4800
 Wire Wire Line
-	9300 5600 9300 5750
-Wire Wire Line
-	9300 5750 9300 5950
-Connection ~ 9300 5750
-Connection ~ 9300 5950
-Wire Wire Line
-	9300 5950 9300 6000
+	9300 5750 9300 5900
+Connection ~ 9300 5900
 $Comp
 L power:GND #PWR0101
 U 1 1 5FB3FFC0
@@ -218,17 +194,6 @@ F 3 "" H 7600 6050 50  0001 C CNN
 	1    7600 6050
 	1    0    0    -1  
 $EndComp
-$Comp
-L ElectronicPsychicSchematics-cache:Any_2Digit_7Segment U?
-U 1 1 5FB4EE8A
-P 9900 4700
-F 0 "U?" H 9900 5367 50  0001 C CNN
-F 1 "Any_2Digit_7Segment" H 9900 5275 50  0000 C CNN
-F 2 "Display:HDSM-441B_HDSM-443B" H 9900 4100 50  0001 C CNN
-F 3 "" H 9680 4800 50  0001 C CNN
-	1    9900 4700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8450 4400 9000 4400
 Wire Wire Line
@@ -244,7 +209,7 @@ Wire Wire Line
 Wire Wire Line
 	8450 5000 9000 5000
 Wire Wire Line
-	8900 5600 8900 5100
+	8900 5750 8900 5100
 Wire Wire Line
 	8900 5100 8450 5100
 $Comp
@@ -261,15 +226,9 @@ $EndComp
 Wire Wire Line
 	8450 5200 8800 5200
 Wire Wire Line
-	8800 5200 8800 5750
+	8800 5200 8800 5900
 Wire Wire Line
-	8800 5750 8900 5750
-Wire Wire Line
-	8900 5950 8700 5950
-Wire Wire Line
-	8700 5950 8700 5300
-Wire Wire Line
-	8700 5300 8450 5300
+	8800 5900 8900 5900
 Wire Wire Line
 	7850 5800 7850 5850
 Wire Wire Line
@@ -281,4 +240,22 @@ Wire Wire Line
 Connection ~ 7900 5850
 Wire Wire Line
 	7900 5850 7950 5850
+Wire Wire Line
+	9300 5900 9300 6000
+$Comp
+L TheAssistant-rescue:Any_2Digit_7Segment-ElectronicPsychicSchematics-cache U1
+U 1 1 5FBA2DE1
+P 9900 4700
+F 0 "U1" H 10430 4689 50  0001 L CNN
+F 1 "Common Anode 7-Segment" H 9400 5300 50  0000 L CNN
+F 2 "Display:HDSM-441B_HDSM-443B" H 9900 4100 50  0001 C CNN
+F 3 "" H 9680 4550 50  0001 C CNN
+	1    9900 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10100 5400 10100 5300
+Wire Wire Line
+	9750 5500 9750 5300
+NoConn ~ 8450 5300
 $EndSCHEMATC

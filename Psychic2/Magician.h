@@ -4,8 +4,6 @@
 #define HAS_HINT 1
 #define HAS_SENTINEL 2
 #define HAS_SEEN_SENTINEL 3
-//#define HAS_CHOSENNUMBER 4
-//#define HAS_COMPLETED 5
 #define PAUSE_FOR_EFFECT 1000
 byte magicState;
 
@@ -203,12 +201,9 @@ void ProcessSecondDigit(char keypress) {
       case HAS_SENTINEL: CheckForSentinel(currentNumber); break;
       case HAS_SEEN_SENTINEL: // which means we're showing the chosen# now.
         // Say no to sentinel as well
-        //magicState = HAS_CHOSENNUMBER;
         justSayNo = false;
         Applause();
         break;
-//      case HAS_CHOSENNUMBER: 
-//        Applause(); break;
     }
   }
 }

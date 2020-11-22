@@ -126,17 +126,13 @@ Wire Wire Line
 Wire Wire Line
 	8450 5100 9000 5100
 Wire Wire Line
-	10500 5200 10700 5200
+	10100 5500 10100 5600
 Wire Wire Line
-	10700 5200 10700 5600
+	10100 5600 8450 5600
 Wire Wire Line
-	10700 5600 8450 5600
+	9750 5500 9750 5700
 Wire Wire Line
-	10500 5300 10600 5300
-Wire Wire Line
-	10600 5300 10600 5700
-Wire Wire Line
-	10600 5700 8450 5700
+	9750 5700 8450 5700
 Wire Wire Line
 	8500 5500 8450 5500
 NoConn ~ 9300 5300
@@ -568,11 +564,11 @@ Wire Wire Line
 	6350 4850 6350 5250
 NoConn ~ 8500 5500
 $Comp
-L ElectronicPsychicSchematics-cache:Any_2Digit_7Segment U?
+L ThePsychic-rescue:Any_2Digit_7Segment-ElectronicPsychicSchematics-cache U1
 U 1 1 5FB563C1
 P 9900 4900
-F 0 "U?" H 9900 5567 50  0000 C CNN
-F 1 "Any_2Digit_7Segment" H 9900 5476 50  0000 C CNN
+F 0 "U1" H 9900 5567 50  0001 C CNN
+F 1 "Common Anode 7-Segment" H 9900 5476 50  0000 C CNN
 F 2 "Display:HDSM-441B_HDSM-443B" H 9900 4300 50  0001 C CNN
 F 3 "" H 9680 5000 50  0001 C CNN
 	1    9900 4900

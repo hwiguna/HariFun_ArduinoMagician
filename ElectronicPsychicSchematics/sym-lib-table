@@ -1,3 +1,5 @@
 (sym_lib_table
   (lib (name ElectronicPsychicSchematics-cache)(type Legacy)(uri ${KIPRJMOD}/ElectronicPsychicSchematics-cache.lib)(options "")(descr ""))
+  (lib (name TheAssistant-rescue)(type Legacy)(uri ${KIPRJMOD}/TheAssistant-rescue.lib)(options "")(descr ""))
+  (lib (name ThePsychic-rescue)(type Legacy)(uri ${KIPRJMOD}/ThePsychic-rescue.lib)(options "")(descr ""))
 )

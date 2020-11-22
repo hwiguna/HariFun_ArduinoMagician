@@ -122,19 +122,6 @@ void TestNumbers() {
   }
 }
 
-void Refresh() {
-  //  digitalWrite(digitPins[currentDigitIndex], OFF); // Turn off last digit index
-  //  currentDigitIndex = 1 - currentDigitIndex; // alternate digit index
-  //  byte currentDigit = (currentDigitIndex == 0) ? currentNumber % 10 : currentNumber / 10;
-  //  if (currentNumber == 0) currentDigit = 10; // Dash
-  //  for (byte i = 0; i < 7; i++) {
-  //    digitalWrite(segmentPins[i], !bitRead(numberMap[currentDigit], i));
-  //  }
-  //  digitalWrite(digitPins[currentDigitIndex], ON);
-  DisplayCurrentNumber();
-  delay(10);
-}
-
 void ShuffleRandomNumber() {
   //  if (digitalRead(buttonPins[0]) == PRESSED) {
   //    byte randomNumber = random(1, 100);
@@ -142,9 +129,7 @@ void ShuffleRandomNumber() {
   //  }
 }
 
-
 #include "Magician.h"
-
 
 byte ReadKeypad() {
   byte keyPressed = 99;
