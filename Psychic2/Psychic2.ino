@@ -1,7 +1,7 @@
 #include <TimerOne.h>
 
 /*
-   Knows what was picked by another Arduino!
+   Psychic - Part of the Arduino Psychic Project
    by Hari Wiguna, 2020
 */
 

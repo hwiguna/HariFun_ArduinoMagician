@@ -1,7 +1,7 @@
 #include <TimerOne.h>
 
 /*
-   Pick a number betweeen 1 and 99
+   Randomizer - part of the Arduino Psychic Project
    by Hari Wiguna, 2020
 */
 
